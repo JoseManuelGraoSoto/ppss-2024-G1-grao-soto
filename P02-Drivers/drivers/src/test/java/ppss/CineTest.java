@@ -2,6 +2,12 @@ package ppss;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CineTest {
@@ -154,6 +160,32 @@ public class CineTest {
                 ()->assertArrayEquals(asientosEsperados, asientos)
         );
     }
+
+    /*
+    Implementacion de test parametrizados
+     */
+
+    private static Stream<Arguments> casoDePrueba(){
+        return Stream.of(
+                Arguments.of(false,new boolean[]{},0,new boolean[]{}),
+                Arguments.of(true, new boolean[]{true, true, false, true, true}, 2, new boolean[]{false, false, false, true, true}),
+                Arguments.of(false, new boolean[]{true, true, true}, 1, new boolean[]{true, true, true})
+        );
+    }
+    @ParameterizedTest(name="holatest {1} y {2} y {3} y {4}")
+    @MethodSource("casoDePrueba")
+    void testParametriza (boolean salidaEsperadaP, boolean [] asientosEsperadosP, int solicitadosP, boolean [] asientosP) {
+
+        //Primero nos aseguramos que no se lance excepcion
+        salidaObtenida = assertDoesNotThrow(() -> cin.reservaButacas(asientosP, solicitadosP), "Desafortunadamente se lanzo Excepcion");
+
+        //Verificacion de Resultados
+        assertAll(
+                ()->assertEquals(salidaEsperadaP, salidaObtenida),
+                ()->assertArrayEquals(asientosEsperadosP, asientosP)
+        );
+    }
+
 
 
 }
