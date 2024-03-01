@@ -1,10 +1,12 @@
 package ppss;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
@@ -167,25 +169,25 @@ public class CineTest {
 
     private static Stream<Arguments> casoDePrueba(){
         return Stream.of(
-                Arguments.of(false,new boolean[]{},0,new boolean[]{}),
-                Arguments.of(true, new boolean[]{true, true, false, true, true}, 2, new boolean[]{false, false, false, true, true}),
-                Arguments.of(false, new boolean[]{true, true, true}, 1, new boolean[]{true, true, true})
+                Arguments.of(false,new boolean[]{},0,new boolean[]{}, "fila has no seats"),
+                Arguments.of(true, new boolean[]{true, true, false, true, true}, 2, new boolean[]{false, false, false, true, true}, "there are 2 free seats"),
+                Arguments.of(false, new boolean[]{true, true, true}, 1, new boolean[]{true, true, true}, "all seats are already reserved")
         );
     }
-    @ParameterizedTest(name="holatest {1} y {2} y {3} y {4}")
+    @DisplayName("reservaButacas_")
+    @ParameterizedTest(name="[{index}] should be {2} when we want {4} and {1}")
     @MethodSource("casoDePrueba")
-    void testParametriza (boolean salidaEsperadaP, boolean [] asientosEsperadosP, int solicitadosP, boolean [] asientosP) {
+    @Tag("parametrizado")
+    void testParametriza (boolean salidaEsperadaP, boolean [] asientosEsperadosP, int solicitadosP, boolean [] asientosP, String str) {
 
         //Primero nos aseguramos que no se lance excepcion
         salidaObtenida = assertDoesNotThrow(() -> cin.reservaButacas(asientosP, solicitadosP), "Desafortunadamente se lanzo Excepcion");
 
         //Verificacion de Resultados
         assertAll(
-                ()->assertEquals(salidaEsperadaP, salidaObtenida),
+                ()->assertEquals(salidaEsperadaP, salidaObtenida, str),
                 ()->assertArrayEquals(asientosEsperadosP, asientosP)
         );
     }
-
-
 
 }
