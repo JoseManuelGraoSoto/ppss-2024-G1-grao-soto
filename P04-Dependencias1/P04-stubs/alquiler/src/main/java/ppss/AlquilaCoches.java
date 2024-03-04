@@ -3,15 +3,19 @@ package ppss;
 import java.time.LocalDate;
 
 public class AlquilaCoches {
+    /*
+    SEAM para la segunda dependencia, pero ademas es una variable de la clase
+    actua como un SEAM ya que podemos meterleel calendario que nosotros queremos en el testable
+    ya que aqui nos implementaremos un set.
+     */
+    protected Calendario calendario = new Calendario();
 
-    protected Calendario calendario = new Calendario(); //SEAM para la segunda dependencia
-
-    /*Pra refactorizar este metodo utilizaremos el metodo 4, el cual se basa en aplicar una Factoria Local
+    /*Para refactorizar este metodo utilizaremos el metodo 4, el cual se basa en aplicar una Factoria Local
     dentro de la clase, por lo que estaremos cumpliendo las restricciones de : "si necesitas refactorizar
     no puedes añadir ningún atributo en la clase que contiene nuestra SUT, ni tampoco alterar en
     modo alguno la forma de invocar a nuestra sut desde otras unidades, así como tampoco puedes
     añadir ninguna clase adicional en producción ( esto ultimo se refiere que no puedes crear nuevas clases
-    en src/main/java/ppss, por lo que si que nos permite añadir clases en src/main/test.
+    en src/main/java/ppss, por lo que si que nos permite añadir clases en src/main/test/ppss.
      */
 
     public IService getPrecio(){
@@ -24,7 +28,12 @@ public class AlquilaCoches {
         float precioDia, precioTotal = 0.0f;
         float porcentaje = 0.25f;
         String observaciones = "";
+        /*
+            IService servicio = new Servicio();
+            Esta linea es la que nos impedia que nuestro test fuera Testable, por lo que hemos
+            tenido que refactorizar, cambiando la linea por la 37
 
+         */
         IService servicio = this.getPrecio(); //Inyeccion SEAM
         precioDia = servicio.consultaPrecio(tipo); //Dependencia Externa
         for (int i = 0; i < ndias; i++) {
