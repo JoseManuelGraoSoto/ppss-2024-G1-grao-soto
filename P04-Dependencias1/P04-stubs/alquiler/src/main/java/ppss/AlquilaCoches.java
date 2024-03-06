@@ -37,7 +37,7 @@ public class AlquilaCoches {
         IService servicio = this.getPrecio(); //Inyeccion SEAM
         precioDia = servicio.consultaPrecio(tipo); //Dependencia Externa
         for (int i = 0; i < ndias; i++) {
-            LocalDate otroDia = inicio.plusDays((long) i); //No es dep.ex ya que es de Java lang
+            LocalDate otroDia = inicio.plusDays((long) i); //Es dep.ex pero no se hace doble ya que es de Java lang
             try {
                 if (calendario.es_festivo(otroDia)) {   //Dependencia Externa
                     precioTotal += (1 + porcentaje) * precioDia;
@@ -48,10 +48,10 @@ public class AlquilaCoches {
                 observaciones += "Error en dia: " + otroDia + "; ";
             }
         }
-        if (observaciones.length() > 0) {
+        if (observaciones.length() > 0) { //Es dep.ex pero no se hace doble ya que es de Java lang
             throw new MensajeException(observaciones);
         }
-        ticket.setPrecio_final(precioTotal);
+        ticket.setPrecio_final(precioTotal); //Es una dependencia externa, pero al ser un SET o GET no tiene sentido implementarlo de nuevo
         return ticket;
     }
 }
