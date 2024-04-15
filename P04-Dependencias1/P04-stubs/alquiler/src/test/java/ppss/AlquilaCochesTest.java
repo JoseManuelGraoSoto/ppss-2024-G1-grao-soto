@@ -46,7 +46,7 @@ public class AlquilaCochesTest {
             //Le aportamos los valores a los dobles como necesitemos en el test
             calSt.setDias(new ArrayList<LocalDate>(){}, new ArrayList<LocalDate>(){});
             alqCochesT.setPrecio(servSt);
-            alqCochesT.setCalendario(calSt);
+            alqCochesT.calendario = calSt;
 
             // Llamar al método que actualiza los asientos
             resObtenido= assertDoesNotThrow(() -> alqCochesT.calculaPrecio(tipo, date, dias));
@@ -75,7 +75,7 @@ public class AlquilaCochesTest {
                 new ArrayList<LocalDate>(){}
         );
         alqCochesT.setPrecio(servSt);
-        alqCochesT.setCalendario(calSt);
+        alqCochesT.calendario = calSt;
 
         // Llamar al método que actualiza los asientos
         resObtenido= assertDoesNotThrow(() -> alqCochesT.calculaPrecio(tipo, date, dias));
@@ -105,7 +105,7 @@ public class AlquilaCochesTest {
 
         );
         alqCochesT.setPrecio(servSt);
-        alqCochesT.setCalendario(calSt);
+        alqCochesT.calendario = calSt;
 
         // Llamar al método que actualiza los asientos
         MensajeException excepcion;

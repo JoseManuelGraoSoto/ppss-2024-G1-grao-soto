@@ -18,7 +18,7 @@ public class AlquilaCoches {
     en src/main/java/ppss, por lo que si que nos permite añadir clases en src/main/test/ppss.
      */
 
-    public IService getPrecio(){
+    public IService getServicio(){
         return new Servicio();
     }
     public Ticket calculaPrecio(TipoCoche tipo, LocalDate inicio, int ndias)
@@ -34,7 +34,7 @@ public class AlquilaCoches {
             tenido que refactorizar, cambiando la linea por la 37
 
          */
-        IService servicio = this.getPrecio(); //Inyeccion SEAM
+        IService servicio = this.getServicio(); //Inyeccion SEAM
         precioDia = servicio.consultaPrecio(tipo); //Dependencia Externa
         for (int i = 0; i < ndias; i++) {
             LocalDate otroDia = inicio.plusDays((long) i); //Es dep.ex pero no se hace doble ya que es de Java lang

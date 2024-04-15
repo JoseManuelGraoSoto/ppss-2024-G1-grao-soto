@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 public class GestorLlamadasTest {
 
     GestorLlamadasTestable gestL;
+    CalendarioStub stub;
     int hora;
     int minutos;
     double resE;
@@ -20,6 +21,7 @@ public class GestorLlamadasTest {
     @BeforeEach
     public void setup() {
         gestL= new GestorLlamadasTestable();
+        stub = new CalendarioStub();
     }
 
     @Test
@@ -29,10 +31,11 @@ public class GestorLlamadasTest {
         minutos = 10;
         hora = 15;
         resE = 208;
-        gestL.setCalendario(hora);
+        stub.setHora(hora);
+        gestL.setCalendario(stub);
 
         // Llamar al método que actualiza los asientos
-        resObtenido= assertDoesNotThrow(() -> gestL.calculaConsumo(minutos));
+        resObtenido= gestL.calculaConsumo(minutos);
 
         // Verificamos el resultado
         assertEquals(resE, resObtenido);
@@ -46,10 +49,11 @@ public class GestorLlamadasTest {
         minutos = 10;
         hora = 22;
         resE = 105;
-        gestL.setCalendario(hora);
+        stub.setHora(hora);
+        gestL.setCalendario(stub);
 
         // Llamar al método que actualiza los asientos
-        resObtenido= assertDoesNotThrow(() -> gestL.calculaConsumo(minutos));
+        resObtenido=gestL.calculaConsumo(minutos);
 
         // Verificamos el resultado
         assertEquals(resE, resObtenido);

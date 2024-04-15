@@ -34,7 +34,7 @@ public class GestorLlamadasTest {
         gestL.setHora(hora);
 
         // Llamar al método que actualiza los asientos
-        resObtenido= assertDoesNotThrow(() -> gestL.calculaConsumo(minutos));
+        resObtenido= gestL.calculaConsumo(minutos);
 
         // Verificamos el resultado
         assertEquals(resE, resObtenido);

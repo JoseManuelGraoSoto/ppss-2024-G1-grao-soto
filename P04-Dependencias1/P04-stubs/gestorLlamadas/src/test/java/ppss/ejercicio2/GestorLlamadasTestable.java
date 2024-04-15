@@ -6,15 +6,14 @@ import java.util.Calendar;
 
 public class GestorLlamadasTestable extends GestorLlamadas{
 
-        CalendarioStub cal;
+        private Calendario cal;
 
         @Override
         public Calendario getCalendario() {
                 return cal;
         }
 
-        public void setCalendario(int hora){
-                cal = new CalendarioStub();
-                cal.setHora(hora);
+        public void setCalendario(Calendario cl){
+                cal = cl;
         }
 }

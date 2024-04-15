@@ -1,19 +1,14 @@
 package ppss;
 
 public class AlquilaCochesTestable extends AlquilaCoches{
-
-    public void setCalendario(CalendarioStub calS){
-        this.calendario = calS;
-    }
-
-    IService precio;
+    IService servicio;
 
     @Override
-    public IService getPrecio(){
-        return precio;
+    public IService getServicio(){
+        return servicio;
     }
 
-    public void setPrecio(IService inter){
-        this.precio = inter;
+    public void setPrecio(IService servicio){
+        this.servicio = servicio;
     }
 }

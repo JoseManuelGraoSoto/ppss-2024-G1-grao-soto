@@ -11,6 +11,7 @@ public class CalendarioStub extends Calendario{
     public void setDias(ArrayList<LocalDate> dV, ArrayList<LocalDate> dE){
         diasExcepcion = dE;
         diasVerdadero = dV;
+
     }
 
     @Override

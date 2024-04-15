@@ -66,6 +66,7 @@ public class PremioTest {
         );
         /*
         Esto se hace asi, ya que si pongo un asserThrows, no podría hacer nada mas.
+        Si quieres que devuelva la excepcion seria assertDoesNotThrow ().expectlastCall.andthrows...
          */
         ctrl.replay();
         resObtenido = premioT.compruebaPremio();
