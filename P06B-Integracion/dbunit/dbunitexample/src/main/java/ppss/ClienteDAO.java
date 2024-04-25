@@ -42,7 +42,7 @@ public class ClienteDAO implements IClienteDAO {
     
     //Borramos un cliente de la BD
     public void delete (Cliente cliente) throws SQLException {
-        Connection connection = DriverManager.getConnection(cadena_conexionDB, "login", "password");
+        Connection connection = DriverManager.getConnection(cadena_conexionDB, "root", "josee711");
         
         String sql = "delete from cliente where id= "
                    + cliente.getId();
@@ -57,7 +57,7 @@ public class ClienteDAO implements IClienteDAO {
     
     //Modificamos los datos de un cliente en la BD
     public void update(Cliente cliente) throws SQLException {
-        Connection connection = DriverManager.getConnection(cadena_conexionDB, "login", "password");
+        Connection connection = DriverManager.getConnection(cadena_conexionDB, "root", "josee711");
         
         String sql = "UPDATE cliente SET "
                     + "nombre="+ "'" + cliente.getNombre() + "', "
@@ -76,7 +76,7 @@ public class ClienteDAO implements IClienteDAO {
     
     //ModRecuperamos los datos de un cliente en la BD mediante su id
     public Cliente retrieve(int clienteID) throws SQLException {
-        Connection connection = DriverManager.getConnection(cadena_conexionDB, "login", "password");
+        Connection connection = DriverManager.getConnection(cadena_conexionDB, "root", "josee711");
         
         String sql = "SELECT id, nombre, apellido, direccion, ciudad from cliente "
                     + "WHERE id=" + "'" + clienteID+ "'";
