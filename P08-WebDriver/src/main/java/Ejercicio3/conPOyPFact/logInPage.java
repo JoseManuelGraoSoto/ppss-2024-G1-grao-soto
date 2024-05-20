@@ -1,4 +1,4 @@
-package Ejercicio2.conPO;
+package Ejercicio3.conPOyPFact;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ public class logInPage {
     WebElement passwordB;
     String pTitleLogIn;
     WebElement sendB;
-
+    String errorLogin;
 
     public logInPage(WebDriver driver){
         this.driver = driver;
@@ -21,17 +21,17 @@ public class logInPage {
         sendB = driver.findElement(By.name("send"));
     }
 
-    public MyAccountPage fillInformation(String gmail, String pass){
+    public void fillInformation(String gmail, String pass){
         gmailB.sendKeys(gmail);
         passwordB.sendKeys(pass);
-        sendB.click();
-        return new MyAccountPage(this.driver);
     }
 
-    public void fillInformationWithError(String gmail, String pass){
-        gmailB.sendKeys(gmail);
-        passwordB.sendKeys(pass);
+    public void clickSend(){
         sendB.click();
+    }
+
+    public WebDriver getDriver(){
+        return driver;
     }
 
     public String getTitle(){
@@ -39,7 +39,6 @@ public class logInPage {
     }
 
     public String getErrorLogin(){
-        String errorLogin;
         errorLogin = this.driver.findElement(By.cssSelector(".messages .error-msg")).getText();
         return errorLogin;
     }

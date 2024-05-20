@@ -10,6 +10,8 @@ import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 
 import org.junit.jupiter.api.*;
 
+import java.sql.SQLException;
+
 /* IMPORTANTE:
     Dado que prácticamente todos los métodos de dBUnit lanzan una excepción,
     vamos a usar "throws Esception" en los métodos, para que el código quede más
@@ -62,6 +64,8 @@ public class ClienteDAO_IT {
 
    }
 
+
+
   @Test
   public void D2_delete_should_remove_John_from_cliente_when_John_is_in_table() throws Exception {
     Cliente cliente =  new Cliente(1,"John", "Smith");
@@ -85,6 +89,105 @@ public class ClienteDAO_IT {
     ITable expectedTable = expectedDataSet.getTable("cliente");
 
     Assertion.assertEquals(expectedTable, actualTable);
+  }
+
+  @Test
+  public void D3_insert_should_add_John_to_cliente_when_John_does_not_exist() throws Exception {
+    Cliente cliente =  new Cliente(1,"Jose", "Grao");
+    cliente.setDireccion("Orihuela");
+    cliente.setCiudad("Alicante");
+
+    //inicializamos la BD
+    IDataSet dataSet = new FlatXmlDataFileLoader().load("/sql/clienteAdded3.xml");
+    databaseTester.setDataSet(dataSet);
+    databaseTester.onSetup();
+
+    //invocamos a la SUT
+    Assertions.assertThrows(SQLException.class, ()->clienteDAO.delete(cliente), "Duplicate entry");
+
+    //recuperamos los datos de la BD después de invocar al SUT
+    IDataSet databaseDataSet = connection.createDataSet();
+    ITable actualTable = databaseDataSet.getTable("cliente");
+
+    //creamos el dataset con el resultado esperado
+    IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/sql/clienteAdded3.xml");
+    ITable expectedTable = expectedDataSet.getTable("cliente");
+
+    Assertion.assertEquals(expectedTable, actualTable);
+  }
+
+  @Test
+  public void D4_delete_should_remove_Julia_from_cliente_when_Julia_is_non_in_table() throws Exception {
+    Cliente cliente =  new Cliente(5,"Julia", "hehe");
+    cliente.setDireccion("Warsaw");
+    cliente.setCiudad("Warsaw");
+
+    //inicializamos la BD
+    IDataSet dataSet = new FlatXmlDataFileLoader().load("/sql/clienteAdded3.xml");
+    databaseTester.setDataSet(dataSet);
+    databaseTester.onSetup();
+
+    //invocamos a la SUT
+    Assertions.assertThrows(SQLException.class, ()->clienteDAO.delete(cliente), "Delete failed");
+
+    //recuperamos los datos de la BD después de invocar al SUT
+    IDataSet databaseDataSet = connection.createDataSet();
+    ITable actualTable = databaseDataSet.getTable("cliente");
+
+    //creamos el dataset con el resultado esperado
+    IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/sql/clienteAdded3.xml");
+    ITable expectedTable = expectedDataSet.getTable("cliente");
+
+    Assertion.assertEquals(expectedTable, actualTable);
+  }
+
+  @Test
+  public void D5_update_should_update_jose_from_cliente_to_Pedro_when_id_1_in_table() throws Exception {
+    Cliente cliente =  new Cliente(2,"Pedro", "Grao");
+    cliente.setDireccion("Warsaw");
+    cliente.setCiudad("Warsaw");
+
+    //inicializamos la BD
+    IDataSet dataSet = new FlatXmlDataFileLoader().load("/sql/clienteAdded3.xml");
+    databaseTester.setDataSet(dataSet);
+    databaseTester.onSetup();
+
+    //invocamos a la SUT
+    Assertions.assertDoesNotThrow(()->clienteDAO.update(cliente));
+
+    //recuperamos los datos de la BD después de invocar al SUT
+    IDataSet databaseDataSet = connection.createDataSet();
+    ITable actualTable = databaseDataSet.getTable("cliente");
+
+    //creamos el dataset con el resultado esperado
+    IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/sql/clienteResultAdded3Update.xml");
+    ITable expectedTable = expectedDataSet.getTable("cliente");
+
+    Assertion.assertEquals(expectedTable, actualTable);
+  }
+
+  @Test
+  public void D6_retrieve() throws Exception {
+    int id = 1;
+    Cliente clienteEsperado = new Cliente(1,"John", "Smith");
+    clienteEsperado.setDireccion("1 Main Street");
+    clienteEsperado.setCiudad("Anycity");
+
+    //inicializamos la BD
+    IDataSet dataSet = new FlatXmlDataFileLoader().load("/sql/cliente-esperado.xml");
+    databaseTester.setDataSet(dataSet);
+    databaseTester.onSetup();
+
+    //invocamos a la SUT
+    Cliente client = Assertions.assertDoesNotThrow(()->clienteDAO.retrieve(id));
+
+    Assertions.assertAll("Comprobación Cliente",
+            ()->Assertions.assertEquals(clienteEsperado.getId(),client.getId()),
+            ()->Assertions.assertEquals(clienteEsperado.getNombre(),client.getNombre()),
+            ()->Assertions.assertEquals(clienteEsperado.getApellido(),client.getApellido()),
+            ()->Assertions.assertEquals(clienteEsperado.getCiudad(),client.getCiudad()),
+            ()->Assertions.assertEquals(clienteEsperado.getDireccion(),client.getDireccion())
+    );
   }
 
 }

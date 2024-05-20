@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <cliente id="2"
+             nombre="Jose"
+             apellido="Grao"
+             direccion="Orihuela"
+             ciudad="Alicante" />
+    <cliente id="3"
+             nombre="Jose"
+             apellido="Soto"
+             direccion="Pilar"
+             ciudad="Murcia" />
+
+</dataset>

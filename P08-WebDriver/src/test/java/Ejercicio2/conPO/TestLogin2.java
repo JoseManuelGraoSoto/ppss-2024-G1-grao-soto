@@ -30,12 +30,9 @@ public class TestLogin2 {
     @Test
     void S4_scenario_PO_loginOK_should_login_with_success_when_user_account_exists(){
         if(poManagerPage.getPageTitle().equals("Madison Island")){
-            poManagerPage.goToLogIn();
-            poLogin = new logInPage(poManagerPage.getDriver());
+            poLogin = poManagerPage.goToLogIn();
             Assertions.assertEquals("Customer Login", poLogin.getTitle());
-            poLogin.fillInformation("josemanuel4.310@gmail.com", "ppss24");
-            poLogin.clickSend();
-            accountPage = new MyAccountPage(poLogin.getDriver());
+            accountPage = poLogin.fillInformation("josemanuel4.310@gmail.com", "ppss24");
             Assertions.assertEquals("My Account", accountPage.getTitle());
         }
     }
@@ -43,11 +40,9 @@ public class TestLogin2 {
     @Test
     void S5_scenario_PO_loginFailed_should_fail_when_user_account_not_exists(){
         if(poManagerPage.getPageTitle().equals("Madison Island")){
-            poManagerPage.goToLogIn();
-            poLogin = new logInPage(poManagerPage.getDriver());
+            poLogin = poManagerPage.goToLogIn();
             Assertions.assertEquals("Customer Login", poLogin.getTitle());
-            poLogin.fillInformation("josemanuel4.310@gmail.com", "ppss25");
-            poLogin.clickSend();
+            poLogin.fillInformationWithError("josemanuel4.310@gmail.com", "ppss25");
             poLogin.getErrorLogin().equals("Invalid login or password.");
         }
     }
