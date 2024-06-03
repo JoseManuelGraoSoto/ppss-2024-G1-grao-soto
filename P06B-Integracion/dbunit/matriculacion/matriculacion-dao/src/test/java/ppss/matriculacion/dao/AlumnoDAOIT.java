@@ -20,7 +20,6 @@ import static org.dbunit.Assertion.assertEquals;
 
 public class AlumnoDAOIT{
 
-    private AlumnoTO alumnoDAO; //SUT
     private IDatabaseTester databaseTester; //Acceder a la BD
     private IDatabaseConnection connection; //Para la conexion
 

@@ -16,9 +16,9 @@ public class logInPage {
     public logInPage(WebDriver driver){
         this.driver = driver;
         pTitleLogIn = this.driver.getTitle();
-        gmailB =  driver.findElement(By.cssSelector("#login-form .form-list .input-box .validate-email"));
-        passwordB = driver.findElement(By.cssSelector("#login-form .form-list .input-box .validate-password"));
-        sendB = driver.findElement(By.name("send"));
+        gmailB =  this.driver.findElement(By.cssSelector("div.input-box input.validate-email"));
+        passwordB = this.driver.findElement(By.cssSelector("div.input-box input.validate-password"));
+        sendB = this.driver.findElement(By.name("send"));
     }
 
     public MyAccountPage fillInformation(String gmail, String pass){

@@ -1,38 +1,38 @@
 package Ejercicio3.conPOyPFact;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
 
 public class ShoesPage {
 
     WebDriver driver;
-
-    String pTitleShoesPage;
-
     public ShoesPage(WebDriver driver){
         this.driver = driver;
-        pTitleShoesPage = this.driver.getTitle();
-
-
     }
-
     /*
-    public void selectShoeToCompare(int number) {
+    public void clickShoesCompares(int n){
         JavascriptExecutor jse = (JavascriptExecutor) driver;
-        switch(number) {
-            case 5: jse.executeScript("arguments[0].scrollIntoView();", wingtipShoe);
-                wingtipShoe.click();
+        switch(n){
+            case 5:
+                jse.executeScript("arguments[0].scrollIntoView();", shoeCompare1);
+                shoeCompare1.click();
                 break;
-            case 6: jse.executeScript("arguments[0].scrollIntoView();", suedeShoe);
-                suedeShoe.click();
+            case 6:
+                jse.executeScript("arguments[0].scrollIntoView();", shoeCompare2);
+                shoeCompare2.click();
                 break;
         }
     }
+    public void clickCompare(){
+        JavascriptExecutor jse  = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].scrollIntoView();", compareButton);
+        compareButton.click();
+    }
 
-    public String getTitle(){
-        return this.pTitleShoesPage;
+    public ComparePage cambiarVentanaCompare(){
+        Set<String> setIds = driver.getWindowHandles();
+        String[] handleIds = setIds.toArray(new String[setIds.size()]);
+        driver.switchTo().window(handleIds[1]);
+        return PageFactory.initElements(driver, ComparePage.class);
     }
      */
 }

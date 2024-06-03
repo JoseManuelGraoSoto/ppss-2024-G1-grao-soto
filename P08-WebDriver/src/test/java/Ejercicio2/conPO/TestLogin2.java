@@ -29,12 +29,11 @@ public class TestLogin2 {
 
     @Test
     void S4_scenario_PO_loginOK_should_login_with_success_when_user_account_exists(){
-        if(poManagerPage.getPageTitle().equals("Madison Island")){
-            poLogin = poManagerPage.goToLogIn();
-            Assertions.assertEquals("Customer Login", poLogin.getTitle());
-            accountPage = poLogin.fillInformation("josemanuel4.310@gmail.com", "ppss24");
-            Assertions.assertEquals("My Account", accountPage.getTitle());
-        }
+        Assertions.assertEquals("Madison Island", poManagerPage.getPageTitle());
+        poLogin = poManagerPage.goToLogIn();
+        Assertions.assertEquals("Customer Login", poLogin.getTitle());
+        accountPage = poLogin.fillInformation("josemanuel4.310@gmail.com", "ppss24");
+        Assertions.assertEquals("My Account", accountPage.getTitle());
     }
 
     @Test

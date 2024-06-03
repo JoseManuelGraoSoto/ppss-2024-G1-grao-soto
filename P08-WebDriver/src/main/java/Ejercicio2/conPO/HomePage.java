@@ -13,11 +13,11 @@ public class HomePage {
         this.driver = driver;
         this.driver.get("http://demo-store.seleniumacademy.com/");
         pTitle = this.driver.getTitle();
-        accountDropList = driver.findElement(By.cssSelector(" #header > div > div.skip-links > div > a"));
     }
     public logInPage goToLogIn(){
+        accountDropList = driver.findElement(By.cssSelector("div.account-cart-wrapper "));
         accountDropList.click();
-        logInB = driver.findElement(By.cssSelector("#header-account .links ul li.last a"));
+        logInB = driver.findElement(By.cssSelector("div.links ul li.last"));
         logInB.click();
         return new logInPage(this.driver);
     }

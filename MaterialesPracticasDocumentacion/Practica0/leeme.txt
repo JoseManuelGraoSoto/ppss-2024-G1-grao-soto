@@ -1,0 +1,22 @@
+Esta práctica consta de 3 elementos:
+
+- P0A-MAquinaVirtual-Git-JetBrains.pdf
+  Contiene: 
+	-> descarga y puesta en marcha de máquina virtual
+	-> creación repositorio Git (en GitHub, y clonación en máquina virtual)
+	-> creación cuenta JetBrains para usar Intellij
+        -> Anexo con lista de los programas (y versiones) instalados en la máquina virtual
+
+- P0B-Maven_IntelliJ.pdf
+  Contiene:
+	-> Maven
+ 	-> IntelliJ (crear proyectos + run configurations)
+	-> Ejercicios
+
+- Directorio Plantillas-P0B
+  Contiene:
+	-> Proyecto maven P00-Intellij
+
+
+
+   
